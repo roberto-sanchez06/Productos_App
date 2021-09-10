@@ -43,6 +43,7 @@ namespace ProductosApp.Formulario
             frmProducto.ShowDialog();
 
             rtbProductView.Text = productoModel.ConvertAsJSON();
+            Dispose();
         }
     }
 }
