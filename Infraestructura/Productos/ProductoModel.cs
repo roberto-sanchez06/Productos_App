@@ -47,7 +47,7 @@ namespace Infraestructura.Productos
         }
         #endregion
         #region Queries
-        public Producto GetProductosByID(int id)
+        public Producto GetProductoByID(int id)
         {
             Array.Sort(productos, new Producto.ProductoIDCompare());
             int index= Array.BinarySearch(productos, id);

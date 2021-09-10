@@ -176,9 +176,24 @@
             this.nudExistencia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nudExistencia.Location = new System.Drawing.Point(166, 170);
+            this.nudExistencia.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.nudExistencia.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudExistencia.Name = "nudExistencia";
             this.nudExistencia.Size = new System.Drawing.Size(262, 21);
             this.nudExistencia.TabIndex = 2;
+            this.nudExistencia.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // txtDescripcion
             // 
