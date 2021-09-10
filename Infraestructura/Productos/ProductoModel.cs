@@ -153,6 +153,5 @@ namespace Infraestructura.Productos
             return index;
         }
         #endregion
-
     }
 }

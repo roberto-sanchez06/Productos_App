@@ -49,25 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formulario\FmrProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formulario\FmrProductos.Designer.cs">
-      <DependentUpon>FmrProductos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Formulario\FrmProductos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formulario\FrmProductos.Designer.cs">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formulario\FrmProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FrmProducto.Designer.cs">
+      <DependentUpon>FrmProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Formulario\FmrProductos.resx">
-      <DependentUpon>FmrProductos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formulario\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\FrmProducto.resx">
+      <DependentUpon>FrmProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
