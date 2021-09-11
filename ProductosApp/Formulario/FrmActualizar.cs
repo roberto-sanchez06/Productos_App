@@ -1,4 +1,6 @@
-﻿using Infraestructura.Productos;
+﻿using Domain.Entities;
+using Domain.Enums;
+using Infraestructura.Productos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,27 +10,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Domain.Enums;
-using Domain.Entities;
 
 namespace ProductosApp.Formulario
 {
-    public partial class FrmProducto : Form
+    public partial class FrmActualizar : Form
     {
         public ProductoModel PModel { get; set; }
-        public FrmProducto()
+        public FrmActualizar()
         {
             InitializeComponent();
         }
 
-        private void FrmProductos_Load(object sender, EventArgs e)
+        private void FrmActualizar_Load(object sender, EventArgs e)
         {
-            cmbUnidadMedida.Items.AddRange(Enum.GetValues(typeof(UnidadMedida)).Cast<object>().ToArray());
+
         }
 
-        private void BtnOK_Click(object sender, EventArgs e)
+        private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             Producto p;
             if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text))
             {
@@ -38,12 +37,13 @@ namespace ProductosApp.Formulario
                 return;
 
             }
-            
-            else {
 
-                 p = new Producto()
+            else
+            {
+
+                p = new Producto()
                 {
-                    Id = PModel.GetLastProductoID() + 1,
+                    Id = (int)nudId.Value,
                     Nombre = txtNombre.Text,
                     Descripcion = txtDescripcion.Text,
                     Cantidad = (int)nudExistencia.Value,
@@ -51,18 +51,10 @@ namespace ProductosApp.Formulario
                     Caducidad = dtpVencimiento.Value,
                     UnidadMedida = (UnidadMedida)cmbUnidadMedida.SelectedIndex
                 };
-                PModel.Add(p);
+                PModel.Update(p);
                 Dispose();
 
             }
-            
-            
-        
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Dispose();
         }
     }
 }
