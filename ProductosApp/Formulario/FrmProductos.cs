@@ -33,11 +33,6 @@ namespace ProductosApp.Formulario
             cmbUnidadMedida.Items.AddRange(Enum.GetValues(typeof(UnidadMedida)).Cast<object>().ToArray());
         }
 
-        private void TxtFinder_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnNew_Click(object sender, EventArgs e)
         {
             FrmProducto frmProducto = new FrmProducto();
@@ -67,6 +62,7 @@ namespace ProductosApp.Formulario
                     cmbUnidadMedida.Visible = false;
                     dtpCaducidad.Visible = false;
                     txtFinder.Visible = false;
+                    ValoresPorDefecto();
                     break;
                 //UNIDAD DE MEDIDA
                 case 2:
@@ -74,6 +70,7 @@ namespace ProductosApp.Formulario
                     cmbUnidadMedida.Visible = true;
                     dtpCaducidad.Visible = false;
                     txtFinder.Visible = false;
+                    ValoresPorDefecto();
                     break;
                 //CADUCIDAD
                 case 3:
@@ -81,10 +78,18 @@ namespace ProductosApp.Formulario
                     cmbUnidadMedida.Visible = false;
                     dtpCaducidad.Visible = true;
                     txtFinder.Visible = false;
+                    ValoresPorDefecto();
                     break;
             }
         }
-
+        public void ValoresPorDefecto()
+        {
+            cmbUnidadMedida.SelectedIndex = -1;
+            txtFinder.Text = string.Empty;
+            nudPrecioFin.Value = nudPrecioFin.Minimum;
+            nudPrecioIni.Value = nudPrecioIni.Minimum;
+            dtpCaducidad.Value = DateTime.Now;
+        }
         private void btnFind_Click(object sender, EventArgs e)
         {
             switch (cmbFinderType.SelectedIndex)
@@ -99,12 +104,19 @@ namespace ProductosApp.Formulario
                     if (!int.TryParse(txtFinder.Text, out int codigo))
                     {
                         MessageBox.Show($"ERROR. El codigo {txtFinder.Text} no es valido", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtFinder.Text = string.Empty;
                         return;
                     }
                     Producto p = productoModel.GetProductoByID(codigo);
-                    rtbProductView.Text= JsonConvert.SerializeObject(p);
-                    //falta agregar para que se muestre en pantalla
+                    if (p != null)
+                    {
+                        rtbProductView.Text = JsonConvert.SerializeObject(p);
+                        txtFinder.Text = string.Empty;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha encontrado un producto con ese codigo","Mensaje de error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return;
+                    }
                     break;
                 //RANGO DE PRECIOS
                 case 1:
@@ -116,31 +128,50 @@ namespace ProductosApp.Formulario
                         return;
                     }
                     Producto[] productos = productoModel.GetProductosByRangoPrecio(nudPrecioIni.Value, nudPrecioFin.Value);
-                    rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                    if (productos != null)
+                    {
+                        rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se han encontrado productos con dichas caracteristicas", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     break;
                 //UNIDAD DE MEDIDA
                 case 2:
-                    switch (cmbUnidadMedida.SelectedIndex)
+                    if (cmbUnidadMedida.SelectedIndex >= 0)
                     {
-                        case 0:
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                            productos = productoModel.GetProductosByUnidadMedida((UnidadMedida) cmbUnidadMedida.SelectedIndex);
+                        productos = productoModel.GetProductosByUnidadMedida((UnidadMedida)cmbUnidadMedida.SelectedIndex);
+                        if (productos != null)
+                        {
                             rtbProductView.Text = productoModel.ConvertASJSON(productos);
-                            break;
-                        default:
-                            MessageBox.Show("ERROR. Usted no ha seleccionado ninguna unidad de medida", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se han encontrado productos con dichas caracteristicas", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("ERROR. Usted no ha seleccionado ninguna unidad de medida", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
                     break;
                 //FECHA DE VENCIMIENTO
                 case 3:
                     DateTime dt = dtpCaducidad.Value;
                     productos = productoModel.GetProductosByFechaVencimiento(dt);
-                    rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                    if (productos != null)
+                    {
+                        rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se han encontrado productos con dichas caracteristicas", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     break;
                 default:
                     MessageBox.Show("ERROR. Usted no ha seleccionado ninguna opcion de busqueda", "Mensaje de error", MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -170,6 +201,19 @@ namespace ProductosApp.Formulario
             //
 
             rtbProductView.Text = productoModel.ConvertAsJSON();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                productoModel.GetProductosOrderByPrecio();
+                rtbProductView.Text = productoModel.ConvertAsJSON();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Mensaje de error ",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

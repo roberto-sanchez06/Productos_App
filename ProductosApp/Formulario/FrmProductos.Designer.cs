@@ -32,7 +32,7 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOrdenar = new System.Windows.Forms.Button();
             this.cmbFinderType = new System.Windows.Forms.ComboBox();
             this.rtbProductView = new System.Windows.Forms.RichTextBox();
             this.btnFind = new System.Windows.Forms.Button();
@@ -55,10 +55,10 @@
             this.flowLayoutPanel1.Controls.Add(this.btnEliminar);
             this.flowLayoutPanel1.Controls.Add(this.btnModificar);
             this.flowLayoutPanel1.Controls.Add(this.btnNew);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(391, 399);
+            this.flowLayoutPanel1.Controls.Add(this.btnOrdenar);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(386, 399);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(495, 52);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(500, 52);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnEliminar
@@ -69,6 +69,7 @@
             this.btnEliminar.TabIndex = 0;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
@@ -78,6 +79,7 @@
             this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnNew
             // 
@@ -89,14 +91,15 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.BtnNew_Click);
             // 
-            // button1
+            // btnOrdenar
             // 
-            this.button1.Location = new System.Drawing.Point(321, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Ordenar por precio";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOrdenar.Location = new System.Drawing.Point(321, 3);
+            this.btnOrdenar.Name = "btnOrdenar";
+            this.btnOrdenar.Size = new System.Drawing.Size(153, 37);
+            this.btnOrdenar.TabIndex = 3;
+            this.btnOrdenar.Text = "Ordenar todos los productos por precio";
+            this.btnOrdenar.UseVisualStyleBackColor = true;
+            this.btnOrdenar.Click += new System.EventHandler(this.button1_Click);
             // 
             // cmbFinderType
             // 
@@ -274,7 +277,7 @@
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cmbUnidadMedida;
         private System.Windows.Forms.TextBox txtFinder;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOrdenar;
         private System.Windows.Forms.Label lblPrecioIni;
         private System.Windows.Forms.Label lblPrecioFin;
         private System.Windows.Forms.DateTimePicker dtpCaducidad;

@@ -50,10 +50,14 @@ namespace Infraestructura.Productos
         public Producto GetProductoByID(int id)
         {
             //revisar aqui
-            Array.Sort(productos, new Producto.ProductoIDCompare());
-            Producto p = new Producto { Id=id};
-            int index= Array.BinarySearch(productos, p, new Producto.ProductoIDCompare());
-            return index < 0 ? null : productos[index];
+            if (productos != null)
+            {
+                Array.Sort(productos, new Producto.ProductoIDCompare());
+                Producto p = new Producto { Id = id };
+                int index = Array.BinarySearch(productos, p, new Producto.ProductoIDCompare());
+                return index < 0 ? null : productos[index];
+            }
+            return null;
         }
         public Producto[] GetProductosByUnidadMedida(UnidadMedida um)
         {
@@ -89,6 +93,10 @@ namespace Infraestructura.Productos
         }
         public Producto[] GetProductosOrderByPrecio()
         {
+            if (productos == null)
+            {
+                throw new ArgumentException("ERROR. No hay productos");
+            }
             Array.Sort(productos, new Producto.ProductoOrderByPrecio());
             return productos;
         }
@@ -114,7 +122,7 @@ namespace Infraestructura.Productos
         }
         public string ConvertASJSON(Producto[] prods)
         {
-            return JsonConvert.SerializeObject(prods);
+            return JsonConvert.SerializeObject(prods, Formatting.Indented);
         }
         public int GetLastProductoID()
         {
