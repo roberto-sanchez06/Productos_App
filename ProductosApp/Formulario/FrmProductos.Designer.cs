@@ -32,13 +32,13 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.cmbFinderType = new System.Windows.Forms.ComboBox();
             this.rtbProductView = new System.Windows.Forms.RichTextBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.cmbUnidadMedida = new System.Windows.Forms.ComboBox();
             this.txtFinder = new System.Windows.Forms.TextBox();
             this.txtFinder2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.lblPrecioIni = new System.Windows.Forms.Label();
             this.lblPrecioFin = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
@@ -63,6 +63,7 @@
             this.btnEliminar.TabIndex = 0;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnModificar
             // 
@@ -72,6 +73,7 @@
             this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnNew
             // 
@@ -82,6 +84,15 @@
             this.btnNew.Text = "Nuevo";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.BtnNew_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(321, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 30);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Ordenar por precio";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // cmbFinderType
             // 
@@ -142,15 +153,6 @@
             this.txtFinder2.Size = new System.Drawing.Size(211, 20);
             this.txtFinder2.TabIndex = 9;
             this.txtFinder2.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(321, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Ordenar por precio";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // lblPrecioIni
             // 

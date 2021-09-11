@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formulario\FrmActualizar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\FrmActualizar.Designer.cs">
+      <DependentUpon>FrmActualizar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formulario\frmEliminar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formulario\frmEliminar.Designer.cs">
+      <DependentUpon>frmEliminar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formulario\FrmProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formulario\FrmActualizar.resx">
+      <DependentUpon>FrmActualizar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formulario\frmEliminar.resx">
+      <DependentUpon>frmEliminar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formulario\FrmProductos.resx">
       <DependentUpon>FrmProductos.cs</DependentUpon>
     </EmbeddedResource>

@@ -45,6 +45,7 @@ namespace ProductosApp.Formulario
             //esta linea fue para probar
             productoModel = frmProducto.PModel;
             //
+           
             rtbProductView.Text = productoModel.ConvertAsJSON();
         }
 
@@ -133,6 +134,30 @@ namespace ProductosApp.Formulario
 
                     break;
             }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            FrmActualizar frmActualizar = new FrmActualizar();
+            frmActualizar.PModel = productoModel;
+            frmActualizar.ShowDialog();
+            //esta linea fue para probar
+            productoModel = frmActualizar.PModel;
+            //
+
+            rtbProductView.Text = productoModel.ConvertAsJSON();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            frmEliminar frmEliminar = new frmEliminar();
+            frmEliminar.PModel = productoModel;
+            frmEliminar.ShowDialog();
+            //esta linea fue para probar
+            productoModel = frmEliminar.PModel;
+            //
+
+            rtbProductView.Text = productoModel.ConvertAsJSON();
         }
     }
 }
