@@ -30,7 +30,7 @@ namespace ProductosApp.Formulario
         {
 
             Producto p;
-            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text))
+            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text) || cmbUnidadMedida.SelectedIndex == -1)
             {
 
                 MessageBox.Show("Campos vacios", "Hay campos necesarios vacios", MessageBoxButtons.OK, MessageBoxIcon.Error);

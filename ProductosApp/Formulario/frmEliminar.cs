@@ -26,7 +26,22 @@ namespace ProductosApp.Formulario
             {
                 Id = (int)nudId.Value
             };
-            PModel.Delete(p);
+
+            try
+            {
+                if (PModel.Delete(p) == true) {
+                    MessageBox.Show("el producto se ha eliminado");
+
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No encontrado", "El producto que desea eliminar no existe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+            
 
         }
     }

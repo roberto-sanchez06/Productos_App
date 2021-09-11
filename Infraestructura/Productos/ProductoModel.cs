@@ -32,18 +32,25 @@ namespace Infraestructura.Productos
         public bool Delete(Producto p)
         {
             int index = GetIndexByID(p);
-            if(index < 0)
+            Producto[] temp = new Producto[productos.Length - 1];
+            if (index != -1)
             {
-                throw new ArgumentException($"El producto con Id: {p.Id} no se encontro");
+                
+                Array.Copy(productos, temp, index);
+                if (index != productos.Length - 1)
+                {
+                    for (int i = index; i < productos.Length - 1; i++)
+                    {
+                        temp[i] = productos[i + 1];
+                    }
+                }
+                productos = temp;
             }
-            if (index != productos.Length - 1)
+            else
             {
-                productos[index] = productos[productos.Length - 1];
+                throw new IndexOutOfRangeException();
             }
-            Producto[] tmp = new Producto[productos.Length - 1];
-            Array.Copy(productos, tmp, tmp.Length);
-            productos = tmp;
-            return productos.Length == tmp.Length;
+            return productos.Length == temp.Length;
         }
         #endregion
         #region Queries

@@ -23,38 +23,60 @@ namespace ProductosApp.Formulario
 
         private void FrmActualizar_Load(object sender, EventArgs e)
         {
-
+            cmbUnidadMedida.Items.AddRange(Enum.GetValues(typeof(UnidadMedida)).Cast<object>().ToArray());
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Producto p;
-            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text))
-            {
-
-                MessageBox.Show("Campos vacios", "Hay campos necesarios vacios", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-
-            }
-
-            else
-            {
-
-                p = new Producto()
+          
+                if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text)|| cmbUnidadMedida.SelectedIndex == -1)
                 {
-                    Id = (int)nudId.Value,
-                    Nombre = txtNombre.Text,
-                    Descripcion = txtDescripcion.Text,
-                    Cantidad = (int)nudExistencia.Value,
-                    Precio = nudPrecio.Value,
-                    Caducidad = dtpVencimiento.Value,
-                    UnidadMedida = (UnidadMedida)cmbUnidadMedida.SelectedIndex
-                };
-                PModel.Update(p);
-                Dispose();
 
-            }
+                    MessageBox.Show("Campos vacios", "Hay campos necesarios vacios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+
+                }
+
+                else
+                {
+
+                    p = new Producto()
+                    {
+                        Id = (int)nudId.Value,
+                        Nombre = txtNombre.Text,
+                        Descripcion = txtDescripcion.Text,
+                        Cantidad = (int)nudExistencia.Value,
+                        Precio = nudPrecio.Value,
+                        Caducidad = dtpVencimiento.Value,
+                        UnidadMedida = (UnidadMedida)cmbUnidadMedida.SelectedIndex
+                    };
+
+                    try
+                    {
+                        PModel.Update(p);
+                    }
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show("No encontrado", "El producto que desea actualizar no existe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+
+                    
+                    Dispose();
+                }
+
+
+
+
+
+     
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }
