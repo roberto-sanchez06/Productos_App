@@ -97,7 +97,7 @@
             this.btnOrdenar.Name = "btnOrdenar";
             this.btnOrdenar.Size = new System.Drawing.Size(153, 37);
             this.btnOrdenar.TabIndex = 3;
-            this.btnOrdenar.Text = "Ordenar todos los productos por precio";
+            this.btnOrdenar.Text = "Ver todos los productos ordenados por precio";
             this.btnOrdenar.UseVisualStyleBackColor = true;
             this.btnOrdenar.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -109,7 +109,8 @@
             "ID",
             "Rango de precios",
             "Unidad de medida",
-            "Fecha de vencimiento"});
+            "Fecha de vencimiento",
+            "Todos los productos"});
             this.cmbFinderType.Location = new System.Drawing.Point(12, 24);
             this.cmbFinderType.Name = "cmbFinderType";
             this.cmbFinderType.Size = new System.Drawing.Size(251, 21);

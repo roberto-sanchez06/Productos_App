@@ -28,50 +28,45 @@ namespace ProductosApp.Formulario
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
             Producto p;
-          
-                if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text)|| cmbUnidadMedida.SelectedIndex == -1)
+
+            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtDescripcion.Text) || cmbUnidadMedida.SelectedIndex == -1)
+            {
+
+                MessageBox.Show("Campos vacios", "Hay campos necesarios vacios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+
+            }
+
+            else
+            {
+
+                p = new Producto()
                 {
+                    Id = (int)nudId.Value,
+                    Nombre = txtNombre.Text,
+                    Descripcion = txtDescripcion.Text,
+                    Cantidad = (int)nudExistencia.Value,
+                    Precio = nudPrecio.Value,
+                    Caducidad = dtpVencimiento.Value,
+                    UnidadMedida = (UnidadMedida)cmbUnidadMedida.SelectedIndex
+                };
 
-                    MessageBox.Show("Campos vacios", "Hay campos necesarios vacios", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    return;
-
+                try
+                {
+                    PModel.Update(p);
                 }
-
-                else
+                catch (Exception ex)
                 {
-
-                    p = new Producto()
-                    {
-                        Id = (int)nudId.Value,
-                        Nombre = txtNombre.Text,
-                        Descripcion = txtDescripcion.Text,
-                        Cantidad = (int)nudExistencia.Value,
-                        Precio = nudPrecio.Value,
-                        Caducidad = dtpVencimiento.Value,
-                        UnidadMedida = (UnidadMedida)cmbUnidadMedida.SelectedIndex
-                    };
-
-                    try
-                    {
-                        PModel.Update(p);
-                    }
-                    catch (Exception ex)
-                    {
                     MessageBox.Show("No encontrado", "El producto que desea actualizar no existe", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    }
-
-                    
-                    Dispose();
                 }
 
 
-
-
-
-     
+                Dispose();
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

@@ -31,32 +31,28 @@ namespace Infraestructura.Productos
         }
         public bool Delete(Producto p)
         {
+            if (p == null)
+            {
+                throw new ArgumentException("El producto no puede ser null.");
+            }
             int index = GetIndexByID(p);
-            Producto[] temp = new Producto[productos.Length - 1];
-            if (index != -1)
+            if (index < 0)
             {
-                
-                Array.Copy(productos, temp, index);
-                if (index != productos.Length - 1)
-                {
-                    for (int i = index; i < productos.Length - 1; i++)
-                    {
-                        temp[i] = productos[i + 1];
-                    }
-                }
-                productos = temp;
+                throw new Exception($"El producto con id:{p.Id} no existe.");
             }
-            else
+            if (index != (productos.Length - 1))
             {
-                throw new IndexOutOfRangeException();
+                productos[index] = productos[productos.Length - 1];
             }
-            return productos.Length == temp.Length;
+            Producto[] tmp = new Producto[productos.Length - 1];
+            Array.Copy(productos, tmp, tmp.Length);
+            productos = tmp;
+            return productos.Length == tmp.Length;
         }
         #endregion
         #region Queries
         public Producto GetProductoByID(int id)
         {
-            //revisar aqui
             if (productos != null)
             {
                 Array.Sort(productos, new Producto.ProductoIDCompare());
@@ -133,7 +129,14 @@ namespace Infraestructura.Productos
         }
         public int GetLastProductoID()
         {
-            return productos == null ? 0 : productos[productos.Length-1].Id;
+            try
+            {
+                return productos == null ? 0 : productos.Length;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return 0;
+            }
         }
         #endregion
         #region private method

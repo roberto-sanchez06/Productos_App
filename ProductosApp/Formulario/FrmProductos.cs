@@ -38,10 +38,10 @@ namespace ProductosApp.Formulario
             FrmProducto frmProducto = new FrmProducto();
             frmProducto.PModel = productoModel;
             frmProducto.ShowDialog();
-            //esta linea fue para probar
-            productoModel = frmProducto.PModel;
-            //
-           
+            if (productoModel.GetAll()!=null)
+            {
+                Array.Sort(productoModel.GetAll(), new Producto.ProductoIDCompare());
+            }
             rtbProductView.Text = productoModel.ConvertAsJSON();
         }
 
@@ -80,6 +80,14 @@ namespace ProductosApp.Formulario
                     txtFinder.Visible = false;
                     ValoresPorDefecto();
                     break;
+                //TODOS
+                case 4:
+                    pnlRangoPrecios.Visible = false;
+                    cmbUnidadMedida.Visible = false;
+                    dtpCaducidad.Visible = false;
+                    txtFinder.Visible = false;
+                    ValoresPorDefecto();
+                    break;
             }
         }
         public void ValoresPorDefecto()
@@ -109,7 +117,8 @@ namespace ProductosApp.Formulario
                     Producto p = productoModel.GetProductoByID(codigo);
                     if (p != null)
                     {
-                        rtbProductView.Text = JsonConvert.SerializeObject(p);
+                        rtbProductView.Text=$"El producto con ID: {codigo} es: \n";
+                        rtbProductView.Text += JsonConvert.SerializeObject(p);
                         txtFinder.Text = string.Empty;
                     }
                     else
@@ -130,7 +139,8 @@ namespace ProductosApp.Formulario
                     Producto[] productos = productoModel.GetProductosByRangoPrecio(nudPrecioIni.Value, nudPrecioFin.Value);
                     if (productos != null)
                     {
-                        rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                        rtbProductView.Text = $"Los productos con precio entre {nudPrecioIni.Value} y {nudPrecioFin.Value} son: \n";
+                        rtbProductView.Text+= productoModel.ConvertASJSON(productos);
                     }
                     else
                     {
@@ -145,7 +155,8 @@ namespace ProductosApp.Formulario
                         productos = productoModel.GetProductosByUnidadMedida((UnidadMedida)cmbUnidadMedida.SelectedIndex);
                         if (productos != null)
                         {
-                            rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                            rtbProductView.Text = $"Los productos con unidad de medida: {(UnidadMedida)cmbUnidadMedida.SelectedIndex} son: \n";
+                            rtbProductView.Text += productoModel.ConvertASJSON(productos);
                         }
                         else
                         {
@@ -165,11 +176,25 @@ namespace ProductosApp.Formulario
                     productos = productoModel.GetProductosByFechaVencimiento(dt);
                     if (productos != null)
                     {
-                        rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                        rtbProductView.Text = $"Los productos con caducidad anterior o igual a: {dt} son: \n";
+                        rtbProductView.Text += productoModel.ConvertASJSON(productos);
                     }
                     else
                     {
                         MessageBox.Show("No se han encontrado productos con dichas caracteristicas", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    break;
+                case 4:
+                    if (productoModel.GetAll() != null)
+                    {
+                        rtbProductView.Text = $"Todos los productos en existencia son: \n";
+                        Array.Sort(productoModel.GetAll(),new Producto.ProductoIDCompare());
+                        rtbProductView.Text += productoModel.ConvertAsJSON();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Todavia no hay productos", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     break;
@@ -181,26 +206,32 @@ namespace ProductosApp.Formulario
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            FrmActualizar frmActualizar = new FrmActualizar();
-            frmActualizar.PModel = productoModel;
-            frmActualizar.ShowDialog();
-            //esta linea fue para probar
-            productoModel = frmActualizar.PModel;
-            //
-
-            rtbProductView.Text = productoModel.ConvertAsJSON();
+            if (productoModel.GetAll() != null)
+            {
+                FrmActualizar frmActualizar = new FrmActualizar();
+                frmActualizar.PModel = productoModel;
+                frmActualizar.ShowDialog();
+                rtbProductView.Text = productoModel.ConvertAsJSON();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos para actualizar", "Mensaje de error ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            frmEliminar frmEliminar = new frmEliminar();
-            frmEliminar.PModel = productoModel;
-            frmEliminar.ShowDialog();
-            //esta linea fue para probar
-            productoModel = frmEliminar.PModel;
-            //
-
-            rtbProductView.Text = productoModel.ConvertAsJSON();
+            if (productoModel.GetAll()!=null)
+            {
+                frmEliminar frmEliminar = new frmEliminar();
+                frmEliminar.PModel = productoModel;
+                frmEliminar.ShowDialog();
+                rtbProductView.Text = productoModel.ConvertAsJSON();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos para eliminar", "Mensaje de error ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -208,7 +239,8 @@ namespace ProductosApp.Formulario
             try
             {
                 productoModel.GetProductosOrderByPrecio();
-                rtbProductView.Text = productoModel.ConvertAsJSON();
+                rtbProductView.Text = "Los productos ordenados por su precio son: \n";
+                rtbProductView.Text += productoModel.ConvertAsJSON();
             }
             catch(Exception ex)
             {

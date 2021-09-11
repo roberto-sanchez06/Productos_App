@@ -30,19 +30,19 @@ namespace ProductosApp.Formulario
             try
             {
                 if (PModel.Delete(p) == true) {
-                    MessageBox.Show("el producto se ha eliminado");
-
-                
+                    MessageBox.Show("el producto se ha eliminado","Mensaje de informacion",MessageBoxButtons.OK,MessageBoxIcon.Information);  
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("No encontrado", "El producto que desea eliminar no existe", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
+            Dispose();
+        }
 
-            
-
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }
