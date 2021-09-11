@@ -32,16 +32,22 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.cmbFinderType = new System.Windows.Forms.ComboBox();
             this.rtbProductView = new System.Windows.Forms.RichTextBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.cmbUnidadMedida = new System.Windows.Forms.ComboBox();
             this.txtFinder = new System.Windows.Forms.TextBox();
-            this.txtFinder2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.lblPrecioIni = new System.Windows.Forms.Label();
             this.lblPrecioFin = new System.Windows.Forms.Label();
+            this.dtpCaducidad = new System.Windows.Forms.DateTimePicker();
+            this.nudPrecioIni = new System.Windows.Forms.NumericUpDown();
+            this.nudPrecioFin = new System.Windows.Forms.NumericUpDown();
+            this.pnlRangoPrecios = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioIni)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioFin)).BeginInit();
+            this.pnlRangoPrecios.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -83,6 +89,15 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.BtnNew_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(321, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 30);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Ordenar por precio";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // cmbFinderType
             // 
             this.cmbFinderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -100,17 +115,17 @@
             // 
             // rtbProductView
             // 
-            this.rtbProductView.Location = new System.Drawing.Point(12, 61);
+            this.rtbProductView.Location = new System.Drawing.Point(12, 85);
             this.rtbProductView.Name = "rtbProductView";
             this.rtbProductView.ReadOnly = true;
-            this.rtbProductView.Size = new System.Drawing.Size(874, 325);
+            this.rtbProductView.Size = new System.Drawing.Size(874, 301);
             this.rtbProductView.TabIndex = 4;
             this.rtbProductView.Text = "";
             this.rtbProductView.TextChanged += new System.EventHandler(this.RtbProductView_TextChanged);
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(742, 22);
+            this.btnFind.Location = new System.Drawing.Point(724, 22);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(141, 23);
             this.btnFind.TabIndex = 5;
@@ -124,64 +139,111 @@
             this.cmbUnidadMedida.FormattingEnabled = true;
             this.cmbUnidadMedida.Location = new System.Drawing.Point(269, 24);
             this.cmbUnidadMedida.Name = "cmbUnidadMedida";
-            this.cmbUnidadMedida.Size = new System.Drawing.Size(218, 21);
+            this.cmbUnidadMedida.Size = new System.Drawing.Size(296, 21);
             this.cmbUnidadMedida.TabIndex = 7;
             this.cmbUnidadMedida.Visible = false;
             // 
             // txtFinder
             // 
-            this.txtFinder.Location = new System.Drawing.Point(500, 24);
+            this.txtFinder.Location = new System.Drawing.Point(269, 24);
             this.txtFinder.Name = "txtFinder";
-            this.txtFinder.Size = new System.Drawing.Size(207, 20);
-            this.txtFinder.TabIndex = 8;
-            // 
-            // txtFinder2
-            // 
-            this.txtFinder2.Location = new System.Drawing.Point(269, 24);
-            this.txtFinder2.Name = "txtFinder2";
-            this.txtFinder2.Size = new System.Drawing.Size(211, 20);
-            this.txtFinder2.TabIndex = 9;
-            this.txtFinder2.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(321, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Ordenar por precio";
-            this.button1.UseVisualStyleBackColor = true;
+            this.txtFinder.Size = new System.Drawing.Size(211, 20);
+            this.txtFinder.TabIndex = 9;
+            this.txtFinder.Visible = false;
             // 
             // lblPrecioIni
             // 
             this.lblPrecioIni.AutoSize = true;
             this.lblPrecioIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F);
-            this.lblPrecioIni.Location = new System.Drawing.Point(336, 6);
+            this.lblPrecioIni.Location = new System.Drawing.Point(24, 2);
             this.lblPrecioIni.Name = "lblPrecioIni";
             this.lblPrecioIni.Size = new System.Drawing.Size(77, 15);
             this.lblPrecioIni.TabIndex = 10;
             this.lblPrecioIni.Text = "Precio Inicial";
-            this.lblPrecioIni.Visible = false;
             // 
             // lblPrecioFin
             // 
             this.lblPrecioFin.AutoSize = true;
             this.lblPrecioFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F);
-            this.lblPrecioFin.Location = new System.Drawing.Point(564, 6);
+            this.lblPrecioFin.Location = new System.Drawing.Point(212, 2);
             this.lblPrecioFin.Name = "lblPrecioFin";
             this.lblPrecioFin.Size = new System.Drawing.Size(68, 15);
             this.lblPrecioFin.TabIndex = 11;
             this.lblPrecioFin.Text = "Precio final";
-            this.lblPrecioFin.Visible = false;
+            // 
+            // dtpCaducidad
+            // 
+            this.dtpCaducidad.Location = new System.Drawing.Point(269, 25);
+            this.dtpCaducidad.Name = "dtpCaducidad";
+            this.dtpCaducidad.Size = new System.Drawing.Size(266, 20);
+            this.dtpCaducidad.TabIndex = 12;
+            this.dtpCaducidad.Visible = false;
+            // 
+            // nudPrecioIni
+            // 
+            this.nudPrecioIni.DecimalPlaces = 2;
+            this.nudPrecioIni.Location = new System.Drawing.Point(6, 20);
+            this.nudPrecioIni.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nudPrecioIni.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPrecioIni.Name = "nudPrecioIni";
+            this.nudPrecioIni.Size = new System.Drawing.Size(120, 20);
+            this.nudPrecioIni.TabIndex = 13;
+            this.nudPrecioIni.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudPrecioFin
+            // 
+            this.nudPrecioFin.DecimalPlaces = 2;
+            this.nudPrecioFin.Location = new System.Drawing.Point(187, 20);
+            this.nudPrecioFin.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nudPrecioFin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPrecioFin.Name = "nudPrecioFin";
+            this.nudPrecioFin.Size = new System.Drawing.Size(120, 20);
+            this.nudPrecioFin.TabIndex = 14;
+            this.nudPrecioFin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // pnlRangoPrecios
+            // 
+            this.pnlRangoPrecios.Controls.Add(this.nudPrecioIni);
+            this.pnlRangoPrecios.Controls.Add(this.nudPrecioFin);
+            this.pnlRangoPrecios.Controls.Add(this.lblPrecioFin);
+            this.pnlRangoPrecios.Controls.Add(this.lblPrecioIni);
+            this.pnlRangoPrecios.Location = new System.Drawing.Point(269, 12);
+            this.pnlRangoPrecios.Name = "pnlRangoPrecios";
+            this.pnlRangoPrecios.Size = new System.Drawing.Size(319, 45);
+            this.pnlRangoPrecios.TabIndex = 15;
+            this.pnlRangoPrecios.Visible = false;
             // 
             // FrmProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 463);
-            this.Controls.Add(this.lblPrecioFin);
-            this.Controls.Add(this.lblPrecioIni);
-            this.Controls.Add(this.txtFinder2);
+            this.Controls.Add(this.pnlRangoPrecios);
+            this.Controls.Add(this.dtpCaducidad);
             this.Controls.Add(this.txtFinder);
             this.Controls.Add(this.cmbUnidadMedida);
             this.Controls.Add(this.btnFind);
@@ -192,6 +254,10 @@
             this.Text = "Catalogo de productos";
             this.Load += new System.EventHandler(this.FmrProductos_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioIni)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrecioFin)).EndInit();
+            this.pnlRangoPrecios.ResumeLayout(false);
+            this.pnlRangoPrecios.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,9 +274,12 @@
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cmbUnidadMedida;
         private System.Windows.Forms.TextBox txtFinder;
-        private System.Windows.Forms.TextBox txtFinder2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblPrecioIni;
         private System.Windows.Forms.Label lblPrecioFin;
+        private System.Windows.Forms.DateTimePicker dtpCaducidad;
+        private System.Windows.Forms.NumericUpDown nudPrecioIni;
+        private System.Windows.Forms.NumericUpDown nudPrecioFin;
+        private System.Windows.Forms.Panel pnlRangoPrecios;
     }
 }

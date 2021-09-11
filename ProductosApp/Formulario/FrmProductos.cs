@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
 using Infraestructura.Productos;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,20 +53,33 @@ namespace ProductosApp.Formulario
         {
             switch (cmbFinderType.SelectedIndex)
             {
+                //ID
+                case 0:
+                    pnlRangoPrecios.Visible = false;
+                    cmbUnidadMedida.Visible = false;
+                    dtpCaducidad.Visible = false;
+                    txtFinder.Visible = true;
+                    break;
                 //RANGO DE PRECIOS
                 case 1:
-                    lblPrecioFin.Visible = true;
-                    lblPrecioIni.Visible = true;
-                    txtFinder2.Visible = true;
+                    pnlRangoPrecios.Visible = true;
+                    cmbUnidadMedida.Visible = false;
+                    dtpCaducidad.Visible = false;
+                    txtFinder.Visible = false;
                     break;
                 //UNIDAD DE MEDIDA
                 case 2:
+                    pnlRangoPrecios.Visible = false;
+                    cmbUnidadMedida.Visible = true;
+                    dtpCaducidad.Visible = false;
+                    txtFinder.Visible = false;
                     break;
-                //FECHA DE VENCIMIENTO
+                //CADUCIDAD
                 case 3:
-                    break;
-                default:
-                    
+                    pnlRangoPrecios.Visible = false;
+                    cmbUnidadMedida.Visible = false;
+                    dtpCaducidad.Visible = true;
+                    txtFinder.Visible = false;
                     break;
             }
         }
@@ -84,54 +98,52 @@ namespace ProductosApp.Formulario
                     if (!int.TryParse(txtFinder.Text, out int codigo))
                     {
                         MessageBox.Show($"ERROR. El codigo {txtFinder.Text} no es valido", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtFinder.Text = string.Empty;
                         return;
                     }
                     Producto p = productoModel.GetProductoByID(codigo);
+                    rtbProductView.Text= JsonConvert.SerializeObject(p);
                     //falta agregar para que se muestre en pantalla
                     break;
                 //RANGO DE PRECIOS
                 case 1:
-                    if (string.IsNullOrEmpty(txtFinder2.Text))
+                    if (nudPrecioFin.Value < nudPrecioIni.Value)
                     {
-                        MessageBox.Show("ERROR. Usted no ingresó ningun dato en el precio inical", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("ERROR. El precio inicial no puede ser menor al final","Mensaje de error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        nudPrecioFin.Value = nudPrecioFin.Minimum;
+                        nudPrecioIni.Value = nudPrecioIni.Minimum;
                         return;
                     }
-                    if (!decimal.TryParse(txtFinder2.Text, out decimal precioIni))
-                    {
-                        MessageBox.Show($"ERROR. El precio inicial {txtFinder2.Text} no es valido", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (precioIni <= 0)
-                    {
-                        MessageBox.Show($"ERROR. El precio inicial {txtFinder2.Text} no puede ser menor o igual a 0", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (string.IsNullOrEmpty(txtFinder.Text))
-                    {
-                        MessageBox.Show("ERROR. Usted no ingresó ningun dato en el precio final", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (!decimal.TryParse(txtFinder.Text, out decimal precioFin))
-                    {
-                        MessageBox.Show($"ERROR. El precio final  {txtFinder.Text} no es valido", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (precioFin <= 0)
-                    {
-                        MessageBox.Show($"ERROR. El precio final {txtFinder2.Text} no puede ser menor o igual a 0", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    Producto[] productos = productoModel.GetProductosByRangoPrecio(precioIni, precioFin);
+                    Producto[] productos = productoModel.GetProductosByRangoPrecio(nudPrecioIni.Value, nudPrecioFin.Value);
+                    rtbProductView.Text = productoModel.ConvertASJSON(productos);
                     break;
                 //UNIDAD DE MEDIDA
                 case 2:
+                    switch (cmbUnidadMedida.SelectedIndex)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                            productos = productoModel.GetProductosByUnidadMedida((UnidadMedida) cmbUnidadMedida.SelectedIndex);
+                            rtbProductView.Text = productoModel.ConvertASJSON(productos);
+                            break;
+                        default:
+                            MessageBox.Show("ERROR. Usted no ha seleccionado ninguna unidad de medida", "Mensaje de error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                    }
                     break;
                 //FECHA DE VENCIMIENTO
                 case 3:
+                    DateTime dt = dtpCaducidad.Value;
+                    productos = productoModel.GetProductosByFechaVencimiento(dt);
+                    rtbProductView.Text = productoModel.ConvertASJSON(productos);
                     break;
                 default:
-
-                    break;
+                    MessageBox.Show("ERROR. Usted no ha seleccionado ninguna opcion de busqueda", "Mensaje de error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return;
             }
         }
     }
